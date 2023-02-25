@@ -1,5 +1,6 @@
 import React from 'react'
-import { NestedModal } from "./AddModal";
+import { ChildModal, NestedModal } from "./AddModal";
+import CategoryComponent from './CategoryComponent';
 import ListComponent from './ListComponent';
 
 function HomePage() {
@@ -11,6 +12,12 @@ function HomePage() {
       </div>
       <div>
         <NestedModal />
+      </div>
+      <div>
+        <ChildModal />
+      </div>
+      <div>
+        <CategoryComponent />
       </div>
     </div>
   )
