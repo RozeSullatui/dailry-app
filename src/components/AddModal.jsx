@@ -28,7 +28,7 @@ function ChildModal() {
 
     return (
     <React.Fragment>
-        <Button onClick={handleOpen}>Open Child Modal</Button>
+        <Button onClick={handleOpen}>追加</Button>
         <Modal
             open={open}
             onClose={handleClose}
@@ -36,11 +36,15 @@ function ChildModal() {
             aria-describedby="child-modal-description"
         >
             <Box sx={{ ...style, width: 200 }}>
-                <h2 id="child-modal-title">Text in a child modal</h2>
+                <h2 id="child-modal-title">商品追加</h2>
                 <p id="child-modal-description">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    <div>
+                        <p>商品名称（全角）<input type="text" /></p>
+                        <p>何日ごとにリマインド（半角数字のみ）<input type="text" /></p>
+                        <p>カテゴリ<input type="text" /></p>
+                    </div>
                 </p>
-            <Button onClick={handleClose}>Close Child Modal</Button>
+            <Button onClick={handleClose}>保存して閉じる</Button>
             </Box>
         </Modal>
     </React.Fragment>
@@ -58,7 +62,7 @@ export default function NestedModal() {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button onClick={handleOpen}>編集</Button>
             <Modal
             open={open}
             onClose={handleClose}
@@ -66,9 +70,9 @@ export default function NestedModal() {
             aria-describedby="parent-modal-description"
             >
             <Box sx={{ ...style, width: 400 }}>
-                <h2 id="parent-modal-title">Text in a modal</h2>
+                <h2 id="parent-modal-title">商品編集</h2>
                 <p id="parent-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    追加
                 </p>
                 <ChildModal />
             </Box>

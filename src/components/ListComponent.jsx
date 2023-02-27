@@ -12,24 +12,24 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData('トイレットペーパー', '7', 2,'www.com', 4.0),
+  createData('歯ブラシ', '洗面具',3, 'www.com', 4.3),
+  createData('リップ', '化粧品',4, 'www.com', 6.0),
+  createData('目薬', '寝具', 4,'www.com', 4.3),
+  createData('牛乳', '食品', 5,'www.com', 3.9),
 ];
 
-export default function ListComponent() {
+export default function ListComponent(props) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>日用品の名前</TableCell>
+            <TableCell align="right">カテゴリ</TableCell>
+            <TableCell align="right">残り(日)</TableCell>
+            <TableCell align="right">URL</TableCell>
+            <TableCell align="right">URL</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

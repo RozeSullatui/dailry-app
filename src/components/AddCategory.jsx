@@ -1,3 +1,5 @@
+import NestedModal, { ChildModal } from "./AddModal"
+
 const AddCategory = ({content, index, todos, setTodos}) => {
     const handleTodoDelete = () => {
         const newTodos = [...todos]
@@ -7,6 +9,8 @@ const AddCategory = ({content, index, todos, setTodos}) => {
     return (
         <div>
             <p>{content}</p>
+            <NestedModal/>
+            <ChildModal/>
             <button onClick={handleTodoDelete}>消去</button>
         </div>
     )
