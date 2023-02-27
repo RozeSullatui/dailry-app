@@ -1,11 +1,12 @@
 import React from 'react'
 import CategoryComponent from './CategoryComponent';
+import Header from './header';
 import ListComponent from './ListComponent';
 
 function HomePage() {
   return (
     <div>
-      <div>HomePage</div>
+      <Header/>
       <div>
         <ListComponent/>
       </div>
