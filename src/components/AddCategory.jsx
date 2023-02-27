@@ -1,6 +1,6 @@
 import NestedModal, { ChildModal } from "./AddModal"
 
-const AddCategory = ({content, index, todos, setTodos}) => {
+const AddCategory = ({category, index, todos, setTodos}) => {
     const handleTodoDelete = () => {
         const newTodos = [...todos]
         newTodos.splice(index,1)
@@ -8,9 +8,9 @@ const AddCategory = ({content, index, todos, setTodos}) => {
     }
     return (
         <div>
-            <p>{content}</p>
+            <p>{category}</p>
             <NestedModal/>
-            <ChildModal/>
+            <ChildModal category={category}/>
             <button onClick={handleTodoDelete}>消去</button>
         </div>
     )
