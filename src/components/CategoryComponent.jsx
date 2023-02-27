@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Todo from "./AddCategory"
 
 const CategoryComponent = () => {
+
     const data = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : []
     const [inputText, setInputText] = useState("")
     const [todos, setTodos] = useState(data)
@@ -18,7 +19,7 @@ const CategoryComponent = () => {
             setTodos([
                 ...todos,
                 {
-                    content: inputText
+                    category: inputText
                 }
             ])
         }
@@ -34,7 +35,7 @@ const CategoryComponent = () => {
                     todos.map((item, index) => {
                         return (
                             <li key={index}>
-                                <Todo content={item.content} index={index} todos={todos} setTodos={setTodos}/>
+                                <Todo category={item.category} index={index} todos={todos} setTodos={setTodos}/>
                             </li>
                         )
                     })
