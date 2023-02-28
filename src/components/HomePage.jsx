@@ -1,5 +1,5 @@
 import { ThemeProvider, unstable_createMuiStrictModeTheme } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CategoryComponent from './CategoryComponent';
 import Header from './header';
 import ListComponent from './ListComponent';
@@ -13,16 +13,40 @@ const theme = unstable_createMuiStrictModeTheme({
 });
 
 function HomePage() {
-  const [todos, setTodos] = useState([]);
+  const data = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : []
+  const [todos, setTodos] = useState(data)
+  const [itemList, setItemList] = useState({});
+
+  useEffect(() => {
+        const json = JSON.stringify(todos)
+        localStorage.setItem("todos",json)
+    }, [todos])
+
+    useEffect(() => {
+      const storedItemList = localStorage.getItem("itemList");
+      if (storedItemList) {
+        setItemList(JSON.parse(storedItemList));
+      }
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem("itemList", JSON.stringify(itemList));
+    }, [itemList]);
+  
+    useEffect(() => {
+      const newTodos = Object.keys(itemList).map((category) => ({ category }));
+      setTodos(newTodos);
+    }, [itemList]);
+
   return (
     <div>
       <ThemeProvider theme={theme}>
       <Header/>
       <div>
-        <ListComponent todos={todos} setTodos={setTodos}/>
+        <ListComponent todos={todos} setTodo={setTodos} itemList={itemList} setItemList={setItemList}/>
       </div>
       <div>
-        <CategoryComponent />
+        <CategoryComponent  todos={todos} setTodos={setTodos}itemLists={itemList} setItemLists={setItemList}/>
       </div>
       </ThemeProvider>
     </div>

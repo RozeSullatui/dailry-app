@@ -78,13 +78,13 @@ function ChildModal({category}) {
         >
             <Box sx={{ ...style, width: 200 }}>
                 <h2 id="child-modal-title">商品追加</h2>
-                <p id="child-modal-description">
+                <div id="child-modal-description">
                     <div>
                         <p>商品名称（全角）<input type="text" value={text1} onChange={(e) => {setText1(e.target.value)}}/></p>
                         <p>何日ごとにリマインド（半角数字のみ）<input type="text" value={text2} onChange={(e) => {setText2(e.target.value)}}/></p>
                         <p>商品のURL<input type="text" value={text3} onChange={(e) => {setText3(e.target.value)}}/></p>
                     </div>
-                </p>
+                </div>
             <Button onClick={handleClose}>保存して閉じる</Button>
             </Box>
         </Modal>

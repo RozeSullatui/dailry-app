@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Todo from "./AddCategory"
 
-const CategoryComponent = () => {
+const CategoryComponent = ({ todos, setTodos,itemLists,setItemLists}) => {
 
-    const data = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : []
+    
     const [inputText, setInputText] = useState("")
-    const [todos, setTodos] = useState(data)
-
-    useEffect(() => {
-        const json = JSON.stringify(todos)
-        localStorage.setItem("todos",json)
-    }, [todos])
 
     const handleAddTodo = () => {
         if(inputText === "") {
@@ -35,7 +29,7 @@ const CategoryComponent = () => {
                     todos.map((item, index) => {
                         return (
                             <li key={index}>
-                                <Todo category={item.category} index={index} todos={todos} setTodos={setTodos}/>
+                                <Todo category={item.category} index={index} todos={todos} setTodos={setTodos}itemLists={itemLists} setItemLists={setItemLists}/>
                             </li>
                         )
                     })

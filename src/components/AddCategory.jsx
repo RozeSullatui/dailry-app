@@ -7,18 +7,25 @@ const styles = {
     padding: '10px',
 };
 
-const AddCategory = ({category, index, todos, setTodos}) => {
+const AddCategory = ({category, index, todos, setTodos,itemLists,setItemLists}) => {
     const handleTodoDelete = () => {
         const newTodos = [...todos]
         newTodos.splice(index,1)
         setTodos(newTodos)
     }
+    const handleCategoryDelete = () => {
+        const newLists = [...itemLists]
+        newLists.splice(index, 1)
+        setItemLists(newLists)
+    }
+
     return (
         <div style={styles}>
             <p>{category}</p>
             <NestedModal/>
             <ChildModal category={category}/>
-            <button onClick={handleTodoDelete}>消去</button>
+            <button onClick={handleTodoDelete}>アイテム削除</button>
+            <button onClick={handleCategoryDelete}>カテゴリー削除</button>
         </div>
     )
 }

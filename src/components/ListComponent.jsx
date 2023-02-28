@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,25 +6,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const ListComponent = () => {
-  const [itemList, setItemList] = useState({});
-  const [todos, setTodo] = useState([]);
+const ListComponent = ({ todos, setTodo,itemList,setItemList}) => {
+  
 
-  useEffect(() => {
-    const storedItemList = localStorage.getItem("itemList");
-    if (storedItemList) {
-      setItemList(JSON.parse(storedItemList));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("itemList", JSON.stringify(itemList));
-  }, [itemList]);
-
-  useEffect(() => {
-    const newTodos = Object.keys(itemList).map((category) => ({ category }));
-    setTodo(newTodos);
-  }, [itemList]);
+  
 
   return (
     <TableContainer component={Paper}>
