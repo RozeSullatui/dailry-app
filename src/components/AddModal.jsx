@@ -4,6 +4,8 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import {useState, useEffect} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from '@mui/material';
+import { EditNotificationsOutlined } from '@mui/icons-material';
 
 const style = {
     position: 'absolute',
@@ -40,21 +42,29 @@ function ChildModal({category}) {
 
 
     const handleClose = () => {
-        if (!data[category]) data[category] = []
-        data[category] = [
-            ...data[category],
+    if (!data[category]) data[category] = []
+    
+        // 入力内容が正しいかどうかをチェック
+        if (text1 && text2 && text3) {
+            data[category] = [      ...data[category],
             {
                 id: uuidv4(),
-                name:text1,
-                day:text2,
-                url:text3
+                name: text1,
+                day: text2,
+                url: text3
             }
-        ]
-        setText1("")
-        setText2("")
-        setText3("")
-        setItemList(data)
-        setOpen(false);
+            ]
+            setText1("")
+            setText2("")
+            setText3("")
+            setItemList(data)
+            
+            // 保存処理は handleClose 関数内でのみ行うようにする
+            const json = JSON.stringify(data)
+            localStorage.setItem("itemList", json)
+        }
+    
+    setOpen(false);
     };
 
     return (
@@ -82,7 +92,20 @@ function ChildModal({category}) {
     );
 }
 
-export default function NestedModal() {
+function renderItems(items) {
+    return items.map((item) => (
+      <ListItem key={item.id}>
+        <ListItemText primary={item.name} secondary={`期限: ${item.day}日`} />
+        <ListItemSecondaryAction>
+          <IconButton edge="end" aria-label="edit">
+            <EditNotificationsOutlined />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+    ));
+  }
+
+function NestedModal() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -91,24 +114,38 @@ export default function NestedModal() {
         setOpen(false);
     };
 
+    // LocalStorage から itemList と todos を取得する
+    const itemList = JSON.parse(localStorage.getItem("itemList"));
+    const todos = JSON.parse(localStorage.getItem("todos"));
+
+    // カテゴリごとにアイテムを表示するためのオブジェクトを作成する
+    const itemsByCategory = {};
+    for (const [category, items] of Object.entries(itemList)) {
+        itemsByCategory[category] = renderItems(items);
+    }
+
     return (
         <div>
-            <Button onClick={handleOpen}>編集</Button>
-            <Modal
+        <Button onClick={handleOpen}>編集</Button>
+        <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description"
-            >
+        >
             <Box sx={{ ...style, width: 400 }}>
-                <h2 id="parent-modal-title">商品編集</h2>
-                <p id="parent-modal-description">
-                    追加
-                </p>
-                <ChildModal />
+            <h2 id="parent-modal-title">商品編集</h2>
+            <p id="parent-modal-description">追加</p>
+            {todos.map((todo) => (
+                <div key={todo.category}>
+                <h3>{todo.category}</h3>
+                <List>{itemsByCategory[todo.category]}</List>
+                </div>
+            ))}
             </Box>
-            </Modal>
+        </Modal>
         </div>
     );
 }
+
 export {ChildModal,NestedModal};

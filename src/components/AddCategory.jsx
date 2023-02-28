@@ -1,4 +1,4 @@
-import NestedModal, { ChildModal } from "./AddModal"
+import {NestedModal,  ChildModal } from "./AddModal"
 
 
 const styles = {
@@ -16,7 +16,7 @@ const AddCategory = ({category, index, todos, setTodos}) => {
     return (
         <div style={styles}>
             <p>{category}</p>
-            <NestedModal category={category}/>
+            <NestedModal/>
             <ChildModal category={category}/>
             <button onClick={handleTodoDelete}>消去</button>
         </div>
