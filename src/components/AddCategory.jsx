@@ -16,7 +16,7 @@ const AddCategory = ({category, index, todos, setTodos}) => {
     return (
         <div style={styles}>
             <p>{category}</p>
-            <NestedModal/>
+            <NestedModal category={category}/>
             <ChildModal category={category}/>
             <button onClick={handleTodoDelete}>消去</button>
         </div>

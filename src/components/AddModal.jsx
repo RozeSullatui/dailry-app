@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import {useState, useEffect} from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const style = {
     position: 'absolute',
@@ -43,6 +44,7 @@ function ChildModal({category}) {
         data[category] = [
             ...data[category],
             {
+                id: uuidv4(),
                 name:text1,
                 day:text2,
                 url:text3
