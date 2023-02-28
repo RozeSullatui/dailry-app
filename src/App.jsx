@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div style={{ backgroundColor: '#F6FFF8', minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/home" element={<HomePage />} />

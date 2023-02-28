@@ -30,6 +30,7 @@ function ChildModal({category}) {
         const json = JSON.stringify(itemList)
         localStorage.setItem("itemList", json)
     }, [itemList])
+    
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {

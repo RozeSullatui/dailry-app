@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,19 +7,26 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+const ListComponent = () => {
+  const [itemList, setItemList] = useState({});
+  const [todos, setTodo] = useState([]);
 
-const rows = [
-  createData('トイレットペーパー', '7', 2,'www.com', 4.0),
-  createData('歯ブラシ', '洗面具',3, 'www.com', 4.3),
-  createData('リップ', '化粧品',4, 'www.com', 6.0),
-  createData('目薬', '寝具', 4,'www.com', 4.3),
-  createData('牛乳', '食品', 5,'www.com', 3.9),
-];
+  useEffect(() => {
+    const storedItemList = localStorage.getItem("itemList");
+    if (storedItemList) {
+      setItemList(JSON.parse(storedItemList));
+    }
+  }, []);
 
-export default function ListComponent(props) {
+  useEffect(() => {
+    localStorage.setItem("itemList", JSON.stringify(itemList));
+  }, [itemList]);
+
+  useEffect(() => {
+    const newTodos = Object.keys(itemList).map((category) => ({ category }));
+    setTodo(newTodos);
+  }, [itemList]);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -33,22 +40,33 @@ export default function ListComponent(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
+          {todos.map((todo) => {
+            const { category } = todo;
+            const itemListByCategory = itemList[category] || [];
+            return (
+              itemListByCategory.map((item) => {
+                const { name, day, url } = item;
+                return (
+                  <TableRow
+                    key={name}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {name}
+                    </TableCell>
+                    <TableCell align="right">{category}</TableCell>
+                    <TableCell align="right">{day}</TableCell>
+                    <TableCell align="right">{url}</TableCell>
+                    <TableCell align="right">{url}</TableCell>
+                  </TableRow>
+                );
+              })
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
+export default ListComponent;

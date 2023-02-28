@@ -1,5 +1,12 @@
 import NestedModal, { ChildModal } from "./AddModal"
 
+
+const styles = {
+    border: '1px solid black',
+    borderRadius: '10px',
+    padding: '10px',
+};
+
 const AddCategory = ({category, index, todos, setTodos}) => {
     const handleTodoDelete = () => {
         const newTodos = [...todos]
@@ -7,7 +14,7 @@ const AddCategory = ({category, index, todos, setTodos}) => {
         setTodos(newTodos)
     }
     return (
-        <div>
+        <div style={styles}>
             <p>{category}</p>
             <NestedModal/>
             <ChildModal category={category}/>
